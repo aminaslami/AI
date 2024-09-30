@@ -42,8 +42,6 @@ parser = StrOutputParser()
 chain = model | parser
 chain.invoke("Tell me a joke")
 
- 
-
 #Step4-------------------------------------------------------
 from langchain_community.document_loaders import PyPDFLoader
 
@@ -93,7 +91,6 @@ from langchain_community.vectorstores import DocArrayInMemorySearch
 vectorstores = DocArrayInMemorySearch.from_documents(
     pages, 
     embedding=embedding
-
 )
 
 # pip install docarray
@@ -108,7 +105,6 @@ retriever.invoke("Machine learning")
 from operator import itemgetter
 
 chain = 
-
 {
     {
     "context": itemgetter("question") | retriever, 
@@ -121,8 +117,8 @@ chain =
 
 chain.invoke({"question": "What is machine learning?"})
 
-#Step5-------------------------------------------------------
-question = [
+#Step12-------------------------------------------------------
+questions = [
     "What is the purpose of the course?",
     "How many hours of live sessions?",
     "How many coding assignments are there in the program?",
@@ -131,23 +127,14 @@ question = [
     "How much does the program cost",
 ]
 
-#Step5-------------------------------------------------------
+for question in questions:
+    print(f"Question: {question}")
+    print(f"Answer: {chain.invoke({'question: question'})}")
+    print()
 
-
-#Step5-------------------------------------------------------
-
-
-#Step5-------------------------------------------------------
-
-
-#Step5-------------------------------------------------------
-
-
-#Step5-------------------------------------------------------
-
-
-#Step5-------------------------------------------------------
-
-
-
-#Step5-------------------------------------------------------
+#Step13-------------------------------------------------------
+for s in chain.stream({"question": "What is the purpose of the course?"}):
+    print(s, end="", flush=True)
+    
+#Step14-------------------------------------------------------
+chain.batch([{"question": q} for q in question])
