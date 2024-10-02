@@ -59,8 +59,29 @@ knowledge_base = KnowledgeBase(df)
 
 # ------------------------------------------
 # 6-Step
-# 
+# Generate the Test Case
 
+from giskard import generate_testset
+
+testset = generate_testset(
+    knowledge_base,
+    num_questions = 60,
+    agent_description = "A chatbot answering questions about the Machine Learning School Website.",
+    # This code is connect the GPT4 and generate all test cases
+)
+
+# ----------------------------------------------
+# 6.1-Step
+# Lest's display a few samples from the test set.
+
+test_set_df = testset.to_pandas()
+
+for index, row in enumerate(test_set_df.head(3).iterrows()):
+    print(f"Question {index + 1}: {row[1]['question']}")
+    print(f"Reference answer: {row[1]['reference_answer']}")
+    print("Reference context:")
+    print(row[1]['reference_context'])
+    print("*******************", end = "\n\n")
 
 
 
