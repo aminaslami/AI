@@ -82,6 +82,3 @@ for index, row in enumerate(test_set_df.head(3).iterrows()):
     print("Reference context:")
     print(row[1]['reference_context'])
     print("*******************", end = "\n\n")
-
-
-
