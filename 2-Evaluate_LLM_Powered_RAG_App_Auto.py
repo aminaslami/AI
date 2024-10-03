@@ -72,7 +72,7 @@ testset = generate_testset(
 
 # ----------------------------------------------
 # 6.1-Step
-# Lest's display a few samples from the test set.
+# Let's display a few samples from the test set.
 
 test_set_df = testset.to_pandas()
 
@@ -82,3 +82,86 @@ for index, row in enumerate(test_set_df.head(3).iterrows()):
     print("Reference context:")
     print(row[1]['reference_context'])
     print("*******************", end = "\n\n")
+
+# ----------------------------------------------
+# 6.2-Step
+# Let's now save the test set to a file.
+
+testset.save("test-set.jsonl")
+
+# ----------------------------------------------
+# 7-Step
+# Prepare the Prompt Template
+
+from langchain.prompts import PromptTemplate
+
+template = """
+Answeer the question based on the context below. If you can't
+answer the question, reply "I don't know".
+
+Context: {context}
+
+Question: {question}
+"""
+
+prompt = PromptTemplate.from_template(template)
+print(prompt.format(context = "Here is some context", question = "Here is a question"))
+
+# ----------------------------------------------
+# 8-Step
+
+retriever = vectorstores.as_retriever()
+# dir(retriever)
+retriever.get_relevant_documents("What is the Machine Learning School")
+
+
+# ----------------------------------------------
+# 9-Step
+# Create the RAG Chain
+
+from langchain_openai.chat_models import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+from operator import itemgetter
+
+model = ChatOpenAI(openai_api_key = OPENAI_API_KEY, model = MODEL)
+
+chain = (
+    {
+        "context": itemgetter("question") | retriever,
+        "question": itemgetter("question"),
+    }
+    | prompt
+    | model
+    | StrOutputParser()
+)
+
+# ----------------------------------------------
+# 9.1-Step
+# Let's make sure the chain works by testing it with a simple question
+
+chain.invoke("{question}: What is the Machine Learning School")
+
+
+# ----------------------------------------------
+# 10-Step
+# Evaluating the Model on the Test Set
+
+def answer_fn(question, history = None):
+    return chain.invoke({"question: question"})
+    
+    
+# ----------------------------------------------
+# 10.1-Step
+# We can now use the evaluate() function to evaluate the model Test set.
+# This function will compare the answer from chain with refernce answers in the test set.
+
+from giskard.rag import evaluate
+report = evaluate(answer_fn, testset = testset, knowledge_base = knowledge_base)
+
+display(report)
+   
+# ----------------------------------------------
+# 10.1-Step
+
+   
+    
