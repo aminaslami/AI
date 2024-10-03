@@ -49,13 +49,14 @@ import pandas as pd
 df = pd.DataFrame([d.page_content for d in documents], columns["text"])
 df.head(10)
 
-# ------------------------------------------
-# 5.1-Step
+
+# 5.1-Step ------------------------------------------
 # We can now create a Knowlege Base using the DataFrame we created before.
 
 from giskard.rag import KnowledgeBase
 
 knowledge_base = KnowledgeBase(df)
+
 
 # ------------------------------------------
 # 6-Step
