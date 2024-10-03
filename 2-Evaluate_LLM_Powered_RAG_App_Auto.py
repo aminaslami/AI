@@ -90,8 +90,7 @@ for index, row in enumerate(test_set_df.head(3).iterrows()):
 testset.save("test-set.jsonl")
 
 
-# ----------------------------------------------
-# 7-Step
+# 7-Step ----------------------------------------------
 # Prepare the Prompt Template
 
 from langchain.prompts import PromptTemplate
@@ -108,16 +107,15 @@ Question: {question}
 prompt = PromptTemplate.from_template(template)
 print(prompt.format(context = "Here is some context", question = "Here is a question"))
 
-# ----------------------------------------------
-# 8-Step
+
+# 8-Step ----------------------------------------------
 
 retriever = vectorstores.as_retriever()
 # dir(retriever)
 retriever.get_relevant_documents("What is the Machine Learning School")
 
 
-# ----------------------------------------------
-# 9-Step
+# 9-Step ----------------------------------------------
 # Create the RAG Chain
 
 from langchain_openai.chat_models import ChatOpenAI
