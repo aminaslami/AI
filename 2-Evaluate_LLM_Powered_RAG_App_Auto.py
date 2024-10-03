@@ -21,8 +21,7 @@ loader = WebBaseLoader("https://www.lm.school/")
 documents = loader.load_and_split(text_spliter)
 documents
 
-# ------------------------------------------
-# 3-Step
+# 3-Step ------------------------------------------
 # How many documents is loaded
 
 len(documents)
