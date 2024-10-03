@@ -9,6 +9,7 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 MODEL = "gpt-3.5-turbo"
 
+
 # 2-Step ------------------------------------------
 # Scrape the Webiste and Split the Content
 
@@ -21,10 +22,12 @@ loader = WebBaseLoader("https://www.lm.school/")
 documents = loader.load_and_split(text_spliter)
 documents
 
+
 # 3-Step ------------------------------------------
 # How many documents is loaded
 
 len(documents)
+
 
 # 4-Step ------------------------------------------
 # Load the Content in a Vector Store
@@ -37,8 +40,8 @@ vectorstores = DocArrayInMemorySearch.from_documents(
     embeddings=OpenAIEmbeddings()
 )
 
-# ------------------------------------------
-# 5-Step
+
+# 5-Step ------------------------------------------
 # Create a Knowledge Base
 
 import pandas as pd
