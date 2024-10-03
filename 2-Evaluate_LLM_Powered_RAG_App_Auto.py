@@ -58,8 +58,7 @@ from giskard.rag import KnowledgeBase
 knowledge_base = KnowledgeBase(df)
 
 
-# ------------------------------------------
-# 6-Step
+# 6-Step------------------------------------------
 # Generate the Test Case
 
 from giskard import generate_testset
@@ -71,8 +70,8 @@ testset = generate_testset(
     # This code is connect the GPT4 and generate all test cases
 )
 
-# ----------------------------------------------
-# 6.1-Step
+
+# 6.1-Step ----------------------------------------------
 # Let's display a few samples from the test set.
 
 test_set_df = testset.to_pandas()
@@ -83,6 +82,7 @@ for index, row in enumerate(test_set_df.head(3).iterrows()):
     print("Reference context:")
     print(row[1]['reference_context'])
     print("*******************", end = "\n\n")
+
 
 # ----------------------------------------------
 # 6.2-Step
