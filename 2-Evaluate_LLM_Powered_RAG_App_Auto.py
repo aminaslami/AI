@@ -26,8 +26,7 @@ documents
 
 len(documents)
 
-# ------------------------------------------
-# 4-Step
+# 4-Step ------------------------------------------
 # Load the Content in a Vector Store
 
 from langchain_openai.embeddings import OpenAIEmbeddings
