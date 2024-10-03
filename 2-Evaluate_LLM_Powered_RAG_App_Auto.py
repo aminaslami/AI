@@ -84,11 +84,11 @@ for index, row in enumerate(test_set_df.head(3).iterrows()):
     print("*******************", end = "\n\n")
 
 
-# ----------------------------------------------
-# 6.2-Step
+# 6.2-Step ----------------------------------------------
 # Let's now save the test set to a file.
 
 testset.save("test-set.jsonl")
+
 
 # ----------------------------------------------
 # 7-Step
